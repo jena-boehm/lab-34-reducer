@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 
 const useRecord = (init) => {
   const [before, setBefore] = useState([]);
@@ -38,11 +38,15 @@ function App() {
     <>
       <button onClick={undo}>undo</button>
       <button onClick={redo}>redo</button>
+
+      <label htmlFor="colorInput">Color Input</label>
       <input 
+        id="colorInput"
         type="color" 
         value={current} 
         onChange={({ target }) => record(target.value)} />
       <div 
+        data-testid="colorDiv"
         style={{ 
           backgroundColor: current, 
           width: '10rem', 
