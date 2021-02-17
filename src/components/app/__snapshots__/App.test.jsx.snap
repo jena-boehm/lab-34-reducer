@@ -5,22 +5,20 @@ exports[`App component renders App 1`] = `
   <button
     data-testid="undoButton"
     disabled=""
+    id="UNDO"
   >
     undo
   </button>
   <button
     data-testid="redoButton"
     disabled=""
+    id="REDO"
   >
     redo
   </button>
-  <label
-    for="colorInput"
-  >
-    Color Input
-  </label>
   <input
-    id="colorInput"
+    data-testid="colorInput"
+    id="RECORD"
     type="color"
     value="#FF0000"
   />

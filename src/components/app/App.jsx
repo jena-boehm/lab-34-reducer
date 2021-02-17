@@ -37,10 +37,6 @@ function App() {
   const [state, dispatch] = useReducer(colorReducer, initialState);
   const { before, current, after } = state;
 
-  const record = () => {
-    dispatch({ type: 'RECORD' });
-  };
-
   const undo = () => {
     dispatch({ type: 'UNDO' });
   };
@@ -53,28 +49,30 @@ function App() {
     <>
       <button 
         data-testid="undoButton"
+        id="UNDO"
         onClick={undo}
         disabled={!before.length}>undo</button>
       <button 
         data-testid="redoButton"
+        id="REDO"
         onClick={redo}
         disabled={!after.length}>redo</button>
 
-      <label htmlFor="colorInput">Color Input</label>
       <input 
-        id="colorInput"
+        data-testid="colorInput"
+        id="RECORD"
         type="color" 
         value={current} 
         onChange={({ target }) => dispatch({
           payload: target.value,
-          type: record
+          type: target.id
         })} 
       />
 
       <div 
         data-testid="colorDiv"
         style={{ 
-          backgroundColor: state.current, 
+          backgroundColor: current, 
           width: '10rem', 
           height: '10rem' }}>
       </div>
