@@ -36,8 +36,12 @@ function App() {
 
   return (
     <>
-      <button onClick={undo}>undo</button>
-      <button onClick={redo}>redo</button>
+      <button 
+        data-testid="undoButton"
+        onClick={undo}>undo</button>
+      <button 
+        data-testid="redoButton"
+        onClick={redo}>redo</button>
 
       <label htmlFor="colorInput">Color Input</label>
       <input 

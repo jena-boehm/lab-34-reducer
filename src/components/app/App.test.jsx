@@ -22,5 +22,25 @@ describe('App component', () => {
     const colorDiv = await screen.getByTestId('colorDiv');
     expect(colorDiv).toHaveStyle({ backgroundColor: '#00FF00' });
   });
+
+  it('should undo and change to previous color', () => {
+    async() => {
+      render(<App />);
+      const colorInput = screen.getByTestId('colorInput');
+      const undoButton = screen.getByTestId('undoButton');
+      fireEvent.change(colorInput, {
+        target: {
+          value: '#FF0000'
+        }
+      });
+      fireEvent.click(undoButton);
+
+      const colorDiv = await screen.findByTestId('colorDiv');
+      expect(colorDiv).toHaveStyle({
+        backgroundColor: '#00FF00'
+      });
+    };
+  });
+
 });
 
