@@ -13,6 +13,7 @@ describe('App component', () => {
   it('changes the background color', async() => {
     render(<App />);
     const colorInput = screen.getByLabelText('Color Input');
+
     fireEvent.change(colorInput, {
       target: {
         value: '#00FF00'
@@ -23,24 +24,42 @@ describe('App component', () => {
     expect(colorDiv).toHaveStyle({ backgroundColor: '#00FF00' });
   });
 
-  it('should undo and change to previous color', () => {
-    async() => {
-      render(<App />);
-      const colorInput = screen.getByTestId('colorInput');
-      const undoButton = screen.getByTestId('undoButton');
-      fireEvent.change(colorInput, {
-        target: {
-          value: '#FF0000'
-        }
-      });
-      fireEvent.click(undoButton);
+  it('should undo and change to previous color', async() => {
+    render(<App />);
+    const colorInput = screen.getByLabelText('Color Input');
+    const undoButton = screen.getByTestId('undoButton');
 
-      const colorDiv = await screen.findByTestId('colorDiv');
-      expect(colorDiv).toHaveStyle({
-        backgroundColor: '#00FF00'
-      });
-    };
+    fireEvent.change(colorInput, {
+      target: {
+        value: '#00FF00'
+      }
+    });
+    fireEvent.click(undoButton);
+
+    const colorDiv = await screen.findByTestId('colorDiv');
+    expect(colorDiv).toHaveStyle({
+      backgroundColor: '#FF0000'
+    });
   });
 
+  it('should redo color change', async() => {
+    render(<App />);
+    const colorInput = screen.getByLabelText('Color Input');
+    const undoButton = screen.getByTestId('undoButton');
+    const redoButton = screen.getByTestId('redoButton');
+
+    fireEvent.change(colorInput, {
+      target: {
+        value: '#0000FF'
+      }
+    });
+    fireEvent.click(undoButton);
+    fireEvent.click(redoButton);
+
+    const colorDiv = await screen.findByTestId('colorDiv');
+    expect(colorDiv).toHaveStyle({
+      backgroundColor: '#0000FF'
+    });
+  });
 });
 
