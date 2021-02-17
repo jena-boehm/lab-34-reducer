@@ -4,11 +4,13 @@ exports[`App component renders App 1`] = `
 <DocumentFragment>
   <button
     data-testid="undoButton"
+    disabled=""
   >
     undo
   </button>
   <button
     data-testid="redoButton"
+    disabled=""
   >
     redo
   </button>

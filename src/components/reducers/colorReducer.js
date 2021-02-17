@@ -5,28 +5,30 @@ export const initialState = {
 };
 
 export default function colorReducer(state, action) {
+  const { before, current, after } = state;
+
   switch(action.type) {
     case 'RECORD':
       return {
         ...state,
-        before: [...state.before, state.current],
+        before: [...before, current],
         current: action.payload
       };
 
     case 'UNDO':
       return {
         ...state,
-        before: state.before.slice(0, -1),
-        current: state.before[state.before.length - 1],
-        after: [state.current, ...state.after],
+        before: before.slice(0, -1),
+        current: before[before.length - 1],
+        after: [current, ...after],
       };
 
     case 'REDO':
       return {
         ...state,
-        before: [...state.before, state.current],
-        current: state.after[0],
-        after: state.after.slice(1)
+        before: [...before, current],
+        current: after[0],
+        after: after.slice(1)
       };
       
     default:
